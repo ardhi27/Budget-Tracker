@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var dailyBudget = 30000
     @State var remainingBudget = 100000
+    @State var buyList = ["Makanan": 30000, "Susu Kucing": 15000]
     var body: some View {
         ZStack{
             Color(.black)
@@ -19,7 +20,7 @@ struct ContentView: View {
                     VStack{
                         VStack{
                             HStack{
-                                Text("Budget Today: ").bold()
+                                Text("Budget Intact: ").bold()
                                 Text("Rp\(dailyBudget)")
                                 Spacer()
                             }.padding([.leading, .top], 30).foregroundColor(.white)
@@ -44,6 +45,19 @@ struct ContentView: View {
                     }.padding([.leading, .trailing], 30)
                 }.frame(height: 100).cornerRadius(15).foregroundColor(.white)
                 Spacer()
+                ZStack{
+                    Color("Custom Gray Color").opacity(0.5)
+                    VStack{
+                        Text("Buy List Today")
+                        ForEach(Array(buyList.keys), id:\.self){
+                            key in
+                            if let price = buyList[key]{
+                                Text("\(key): Rp\(price)")
+                            }
+                        }
+                        Spacer()
+                    }.padding()
+                }.cornerRadius(15).foregroundColor(.white)
                 Text("Button place").foregroundColor(.white)
             }
             .padding()
