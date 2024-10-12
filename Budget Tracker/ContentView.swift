@@ -67,7 +67,7 @@ struct ContentView: View {
                     }){
                         Text("Add List ")
                     }.sheet(isPresented: $addListModal){
-                        AddListModal()
+                        AddListModal().presentationDetents([.medium])
                     }
                     Spacer()
                     Button(action:{
@@ -75,7 +75,7 @@ struct ContentView: View {
                     }){
                         Text("Add Budget Intact")
                     }.sheet(isPresented: $budgetIntactModal){
-                        BudgetIntactModal()
+                        BudgetIntactModal().presentationDetents([.medium])
                     }
                 }.buttonStyle(.bordered)
             }
@@ -88,14 +88,27 @@ struct ContentView: View {
 
 
 struct AddListModal: View{
+    @State private var key: String
+    @State private var value: Int
+    @State private var buyList: [String : Int]
     var body: some View{
-        Text("Hello World")
+        VStack{
+            Text("Budget Intact WOI").bold()
+            TextField("Name : ", text: $key)
+            TextField("Value : ", value: $value, format:.number)
+        }
+        .frame(maxWidth: .infinity, maxHeight: 100)
+        List{
+            ForEach(buyList.sorted(by: {$0.key < $1.key}), id:\.key) { key, value in
+                Text("\(key) : \(value)")
+            }
+        }
     }
 }
 
 struct BudgetIntactModal: View{
     var body: some View{
-        Text("Budget Intact")
+        Text("Test")
     }
 }
 
