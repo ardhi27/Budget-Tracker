@@ -11,6 +11,9 @@ struct ContentView: View {
     @State var dailyBudget = 30000
     @State var remainingBudget = 100000
     @State var buyList = ["Makanan": 30000, "Susu Kucing": 15000]
+    @State private var budgetIntactModal = false
+    @State private var addListModal = false
+    @State var path = NavigationPath()
     var body: some View {
         ZStack{
             Color(.black)
@@ -58,16 +61,41 @@ struct ContentView: View {
                         Spacer()
                     }.padding()
                 }.cornerRadius(15).foregroundColor(.white)
-                Text("Button place").foregroundColor(.white)
+                HStack{
+                    Button(action:{
+                    addListModal = true
+                    }){
+                        Text("Add List ")
+                    }.sheet(isPresented: $addListModal){
+                        AddListModal()
+                    }
+                    Spacer()
+                    Button(action:{
+                        budgetIntactModal = true
+                    }){
+                        Text("Add Budget Intact")
+                    }.sheet(isPresented: $budgetIntactModal){
+                        BudgetIntactModal()
+                    }
+                }.buttonStyle(.bordered)
             }
             .padding()
         }
     }
 }
 
-struct DailyBudgetModal: View{
+
+
+
+struct AddListModal: View{
     var body: some View{
-        Text("Hello, world!")
+        Text("Hello World")
+    }
+}
+
+struct BudgetIntactModal: View{
+    var body: some View{
+        Text("Budget Intact")
     }
 }
 
