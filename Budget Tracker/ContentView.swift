@@ -90,7 +90,9 @@ struct ContentView: View {
                         Text("Add Budget Intact")
                     }
                     .sheet(isPresented: $budgetIntactModal) {
-                        BudgetIntactModal()
+                        BudgetIntactModal(budgetIntact: $dailyBudget){
+                            newBudget in print("Budget Intact : \(newBudget)")
+                        }
                             .presentationDetents([.medium])
                     }
                 }
@@ -130,10 +132,21 @@ struct AddListModal: View {
 }
 
 struct BudgetIntactModal: View {
+    @Binding var budgetIntact: Int
+    var onAddBudget: (Int) -> Void
     var body: some View {
-        Text("Budget Intact Modal")
+        VStack{
+            Text("Budget Intact Modal")
+            TextField("Enter Budget Intact :", value: $budgetIntact, format: .number)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                }
+            Button("Add Budget"){
+                onAddBudget(budgetIntact)
+            }
+        }
     }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
