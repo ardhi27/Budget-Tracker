@@ -2,11 +2,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State var dailyBudget = 30000
-    @State var remainingBudget = 100000
     @State var buyList = ["Makanan": 30000, "Susu Kucing": 15000]
     @State private var budgetIntactModal = false
     @State private var addListModal = false
     @State var path = NavigationPath()
+    
+    var totalBuyList: Int{
+        buyList.reduce(0){
+            $0 + $1.value
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -45,7 +50,7 @@ struct ContentView: View {
                     HStack {
                         Text("Budget Output Today:")
                         Spacer()
-                        Text("Rp\(remainingBudget)")
+                        Text("Rp\(totalBuyList)")
                     }
                     .padding([.leading, .trailing], 30)
                 }
